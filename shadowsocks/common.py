@@ -214,7 +214,7 @@ class IPNetwork(object):
         self._network_list_v4 = []
         self._network_list_v6 = []
         if type(addrs) == str:
-            addrs = addrs.split(',')
+            addrs = addrs.replace(' ', '').split(',')
         list(map(self.add_network, addrs))
 
     def add_network(self, addr):
