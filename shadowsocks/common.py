@@ -236,7 +236,7 @@ class IPNetwork(object):
                 ip >>= 1
                 prefix_size += 1
             logging.warn("You did't specify CIDR routing prefix size for %s, "
-                         "implicit treated as %s/%d" % (addr, addr, addr_len))
+                         "implicit treated as %s/%d" % (addr, addr, addr_len - prefix_size))
         elif block[1].isdigit() and int(block[1]) <= addr_len:
             prefix_size = addr_len - int(block[1])
             ip >>= prefix_size
@@ -289,7 +289,7 @@ def test_pack_header():
 
 
 def test_ip_network():
-    ip_network = IPNetwork('127.0.0.0/24,::ff:1/112,::1,192.168.1.1,192.0.2.0')
+    ip_network = IPNetwork('127.0.0.0/24,::ff:1/112,::1,192.168.1.1,192.0.2.0,192.168.4.0')
     assert '127.0.0.1' in ip_network
     assert '127.0.1.1' not in ip_network
     assert ':ff:ffff' in ip_network
